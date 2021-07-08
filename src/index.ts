@@ -6,6 +6,8 @@ import {
   LIGO_PATH,
   DEFAULT_INSTALL_VERSION,
 } from './globals';
+import { prepare } from './compile-contract';
+import { executeWithDocker } from './docker';
 
 export const checkIfDockerImageExists = async (version: string) => {
   return new Promise(resolve => {
@@ -76,12 +78,27 @@ export const fetchDockerImage = async (version: string, force = false) => {
 export const checkAndInstall = (
   version = DEFAULT_INSTALL_VERSION,
   force = false,
-  path = DEFAULT_BIN_PATH
+  path = DEFAULT_BIN_PATH,
+  dockerOnly = false
 ) => {
   const operatingSystem = process.platform;
-  if (operatingSystem === 'linux') {
+  if (operatingSystem === 'linux' && !dockerOnly) {
     downloadLinuxBinary(path, force);
-  } else if (operatingSystem === 'win32' || operatingSystem === 'darwin') {
+  } else if (
+    operatingSystem === 'win32' ||
+    operatingSystem === 'darwin' ||
+    (operatingSystem === 'linux' && dockerOnly)
+  ) {
     fetchDockerImage(version, force);
   }
 };
+
+executeWithDocker(
+  prepare(
+    { entrypoint: 'main', sourceFile: './test-warn.mligo' },
+    { outputFile: './test.mligo.compiled' },
+    true
+  )
+)
+  .then(result => console.log(result))
+  .catch(err => console.log(`Error:\n${err}`));
