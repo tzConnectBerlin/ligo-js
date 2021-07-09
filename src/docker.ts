@@ -29,7 +29,7 @@ export const executeWithDocker = async (
     });
 
     dockerSpawn.on('close', code => {
-      if (code != 0 || stderr != '') {
+      if (code != 0 || stderr.trim() != '') {
         if (stderr.includes('Warning')) {
           resolve(stderr);
         } else {

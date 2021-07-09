@@ -1,37 +1,36 @@
 import path from 'path';
-import { CompileContractOptions, CompileContractArguments } from './types';
+import { CompileStorageOptions, CompileStorageArguments } from './types';
 import { executeWithDocker } from './docker';
 import { StringIndex } from './types';
 
 const NO_VALUE_OPTIONS = ['infer', 'version', 'disable-michelson-typechecking'];
 
 const OPTION_MAP: StringIndex = {
-  disableMichelsonTypeChecking: 'disable-michelson-typechecking',
   michelsonFormat: 'michelson-format',
   outputFile: 'output-file',
   displayFormat: 'display-format',
 };
 
-const DEFAULT_OPTIONS: CompileContractOptions = {
+const DEFAULT_OPTIONS: CompileStorageOptions = {
   displayFormat: 'human-readable',
   michelsonFormat: 'text',
 };
 
-const command = 'compile-contract';
+const command = 'compile-storage';
 
 /**
  *
- * @param args arguments taken by compile-contract command
- * @param opts Options taken by compile contract command
+ * @param args arguments taken by compile-storage command
+ * @param opts Options taken by compile storage command
  * @param useDocker should prepare commands compatible with docker (default: false)
- * @returns string array of command line params that can be passed to compile-contract
+ * @returns string array of command line params that can be passed to compile-storage
  */
 export const prepare = (
-  args: CompileContractArguments,
-  opts?: CompileContractOptions,
+  args: CompileStorageArguments,
+  opts?: CompileStorageOptions,
   useDocker = false
 ): string[] => {
-  const compileOptions: CompileContractOptions = {
+  const compileOptions: CompileStorageOptions = {
     ...DEFAULT_OPTIONS,
     ...opts,
   };
@@ -67,19 +66,25 @@ export const prepare = (
       .normalize('/project/' + sourcePath.replace(currentWorkingDirectory, ''))
       .replace(/\\/g, '/');
   }
-  return [command, ...preparedOpts, sourceFile, rest.entrypoint];
+  return [
+    command,
+    ...preparedOpts,
+    sourceFile,
+    rest.entrypoint,
+    rest.storageExpression,
+  ];
 };
 
 /**
  *
- * @param args arguments taken by compile-contract command
- * @param opts Options taken by compile contract command
+ * @param args arguments taken by compile-storage command
+ * @param opts Options taken by compile storage command
  * @param useDocker should use docker to execute (default: false)
  * @returns string | undefined (depends on options)
  */
-export const compileContract = async (
-  args: CompileContractArguments,
-  opts?: CompileContractOptions,
+export const compileStorage = async (
+  args: CompileStorageArguments,
+  opts?: CompileStorageOptions,
   useDocker = false
 ) => {
   if (useDocker) {
