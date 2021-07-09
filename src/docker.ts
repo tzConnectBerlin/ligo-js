@@ -1,7 +1,9 @@
 import { spawn } from 'child_process';
 import path from 'path';
 
-export const executeWithDocker = async (params: string[]) => {
+export const executeWithDocker = async (
+  params: string[]
+): Promise<string | undefined> => {
   return new Promise((resolve, reject) => {
     const currentWorkingDirectory = path.normalize(process.cwd());
 

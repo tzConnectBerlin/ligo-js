@@ -1,4 +1,5 @@
 import path from 'path';
+import { executeWithDocker } from './docker';
 
 type DisplayFormat = 'dev' | 'json' | 'human-readable';
 type Help = 'auto' | 'pager' | 'groff' | 'plain';
@@ -48,6 +49,13 @@ const DEFAULT_OPTIONS: CompileContractOptions = {
 
 export const command = 'compile-contract';
 
+/**
+ *
+ * @param args arguments taken by compile-contract command
+ * @param opts Options taken by compile contract command
+ * @param useDocker should prepare commands compatible with docker (default: false)
+ * @returns string array of command line params that can be passed to compile-contract
+ */
 export const prepare = (
   args: CompileContractArguments,
   opts?: CompileContractOptions,
@@ -92,4 +100,28 @@ export const prepare = (
       .replace(/\\/g, '/');
   }
   return [command, ...preparedOpts, source, args.entrypoint];
+};
+
+/**
+ *
+ * @param args arguments taken by compile-contract command
+ * @param opts Options taken by compile contract command
+ * @param useDocker should use docker to execute (default: false)
+ * @returns string | undefined (depends on options)
+ */
+export const compileContract = async (
+  args: CompileContractArguments,
+  opts?: CompileContractOptions,
+  useDocker = false
+) => {
+  if (useDocker) {
+    try {
+      const result = await executeWithDocker(prepare(args, opts, useDocker));
+      return result;
+    } catch (error) {
+      throw Error(error);
+    }
+  } else {
+    throw Error('Binary execution is not implemented');
+  }
 };

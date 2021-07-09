@@ -18,7 +18,8 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "execute": "ts-node src/index.ts"
+    "execute": "ts-node src/index.ts",
+    "postinstall": "node dist/index.js --postinstall"
   },
   "peerDependencies": {},
   "husky": {
