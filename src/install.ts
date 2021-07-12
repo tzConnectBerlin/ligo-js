@@ -1,8 +1,10 @@
 import https from 'https';
+import path from 'path';
 import fs from 'fs';
 import { spawn, exec } from 'child_process';
 import {
-  DEFAULT_BIN_PATH,
+  DEFAULT_BIN_NAME,
+  DEFAULT_BIN_DIR,
   LIGO_PATH,
   DEFAULT_INSTALL_VERSION,
 } from './globals';
@@ -18,22 +20,35 @@ export const checkIfDockerImageExists = async (version: string) => {
   });
 };
 
-export const downloadLinuxBinary = (path: string, force = false) => {
-  https.get(LIGO_PATH, res => {
-    if (fs.existsSync(path)) {
-      if (force) {
-        fs.unlinkSync(path);
-      } else {
-        return;
-      }
+export const downloadLinuxBinary = (
+  binDirectory: string,
+  binName: string,
+  force = false
+) => {
+  const normalizedDir = path.normalize(process.cwd() + '/' + binDirectory);
+  const normalizedPath = path.normalize(normalizedDir + '/' + binName);
+  if (fs.existsSync(normalizedPath)) {
+    if (force) {
+      fs.unlinkSync(normalizedPath);
+    } else {
+      return;
     }
-    const filePath = fs.createWriteStream(path, { encoding: 'binary' });
-    res.pipe(filePath);
-    filePath.on('finish', () => {
-      filePath.close();
-      console.log('Download Completed.\nSetting necessary permissions.');
-      fs.chmod(path, '0755', () => {
-        console.log('Done!');
+  } else if (!fs.existsSync(normalizedDir)) {
+    fs.mkdirSync(normalizedDir, { recursive: true });
+  }
+  return new Promise(resolve => {
+    const binaryFile = fs.createWriteStream(normalizedPath, {
+      encoding: 'binary',
+    });
+    https.get(LIGO_PATH, res => {
+      res.pipe(binaryFile);
+      binaryFile.on('finish', () => {
+        binaryFile.close();
+        console.log('Download Completed.\nSetting necessary permissions.');
+        fs.chmod(normalizedPath, '0755', () => {
+          console.log('Done!');
+          resolve(normalizedPath);
+        });
       });
     });
   });
@@ -76,12 +91,13 @@ export const fetchDockerImage = async (version: string, force = false) => {
 export const checkAndInstall = async (
   version = DEFAULT_INSTALL_VERSION,
   force = false,
-  path = DEFAULT_BIN_PATH,
+  binName = DEFAULT_BIN_NAME,
+  binDir = DEFAULT_BIN_DIR,
   dockerOnly = false
 ) => {
   const operatingSystem = process.platform;
   if (operatingSystem === 'linux' && !dockerOnly) {
-    downloadLinuxBinary(path, force);
+    await downloadLinuxBinary(binDir, binName, force);
   } else if (
     operatingSystem === 'win32' ||
     operatingSystem === 'darwin' ||
@@ -94,6 +110,6 @@ export const checkAndInstall = async (
 export const postInstall = async () => {
   const args = process.argv[2];
   if (args && args === '--postinstall') {
-    await checkAndInstall(undefined, true);
+    await checkAndInstall('next', true);
   }
 };
