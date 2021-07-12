@@ -1,5 +1,4 @@
 import https from 'https';
-import path from 'path';
 import fs from 'fs';
 import { spawn, exec } from 'child_process';
 import {
@@ -8,6 +7,7 @@ import {
   LIGO_PATH,
   DEFAULT_INSTALL_VERSION,
 } from './globals';
+import { getBinaryDirectory, getBinaryPath, shouldUseDocker } from './utils';
 
 export const checkIfDockerImageExists = async (version: string) => {
   return new Promise(resolve => {
@@ -25,8 +25,8 @@ export const downloadLinuxBinary = (
   binName: string,
   force = false
 ) => {
-  const normalizedDir = path.normalize(process.cwd() + '/' + binDirectory);
-  const normalizedPath = path.normalize(normalizedDir + '/' + binName);
+  const normalizedDir = getBinaryDirectory(binDirectory);
+  const normalizedPath = getBinaryPath(binDirectory, binName);
   if (fs.existsSync(normalizedPath)) {
     if (force) {
       fs.unlinkSync(normalizedPath);
@@ -39,16 +39,14 @@ export const downloadLinuxBinary = (
   return new Promise(resolve => {
     const binaryFile = fs.createWriteStream(normalizedPath, {
       encoding: 'binary',
+      mode: 0o755,
     });
     https.get(LIGO_PATH, res => {
       res.pipe(binaryFile);
       binaryFile.on('finish', () => {
         binaryFile.close();
         console.log('Download Completed.\nSetting necessary permissions.');
-        fs.chmod(normalizedPath, '0755', () => {
-          console.log('Done!');
-          resolve(normalizedPath);
-        });
+        resolve(normalizedPath);
       });
     });
   });
@@ -91,17 +89,15 @@ export const fetchDockerImage = async (version: string, force = false) => {
 export const checkAndInstall = async (
   version = DEFAULT_INSTALL_VERSION,
   force = false,
-  binName = DEFAULT_BIN_NAME,
   binDir = DEFAULT_BIN_DIR,
+  binName = DEFAULT_BIN_NAME,
   dockerOnly = false
 ) => {
-  const operatingSystem = process.platform;
-  if (operatingSystem === 'linux' && !dockerOnly) {
+  if (process.platform === 'linux' && !dockerOnly) {
     await downloadLinuxBinary(binDir, binName, force);
   } else if (
-    operatingSystem === 'win32' ||
-    operatingSystem === 'darwin' ||
-    (operatingSystem === 'linux' && dockerOnly)
+    shouldUseDocker() ||
+    (process.platform === 'linux' && dockerOnly)
   ) {
     await fetchDockerImage(version, force);
   }

@@ -2,6 +2,9 @@ import path from 'path';
 import { CompileContractOptions, CompileContractArguments } from './types';
 import { executeWithDocker } from './docker';
 import { StringIndex } from './types';
+import { DEFAULT_BIN_DIR, DEFAULT_BIN_NAME } from './globals';
+import { executeWithBinary } from './ligoBinary';
+import { shouldUseDocker } from './utils';
 
 const NO_VALUE_OPTIONS = ['infer', 'version', 'disable-michelson-typechecking'];
 
@@ -82,14 +85,15 @@ export const compileContract = async (
   opts?: CompileContractOptions,
   useDocker = false
 ) => {
-  if (useDocker) {
-    try {
-      const result = await executeWithDocker(prepare(args, opts, useDocker));
-      return result;
-    } catch (error) {
-      throw Error(error);
+  try {
+    const docker = shouldUseDocker() || useDocker;
+    const params = prepare(args, opts, docker);
+    if (docker) {
+      return await executeWithDocker(params);
+    } else {
+      return await executeWithBinary(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME, params);
     }
-  } else {
-    throw Error('Binary execution is not implemented');
+  } catch (error) {
+    throw Error(error);
   }
 };
