@@ -12,16 +12,14 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build --target node --format cjs,esm,umd",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
+    "postinstall": "node scripts/postinstall.js",
     "size": "size-limit",
-    "analyze": "size-limit --why",
-    "postinstall": "node scripts/postinstall.js"
+    "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -33,20 +31,24 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "ligo-js",
-  "author": "Shubhendu Shekhar",
-  "module": "dist/ligo-js.esm.js",
+  "browser": {
+    "fs": false,
+    "child_process": false
+  },
   "size-limit": [{
       "path": "dist/ligo-js.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "40 KB"
     },
     {
       "path": "dist/ligo-js.esm.js",
-      "limit": "10 KB"
+      "limit": "40 KB"
     }
   ],
+  "name": "ligo-js",
+  "author": "Shubhendu Shekhar",
+  "module": "dist/ligo-js.esm.js",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^5.0.1",
+    "@size-limit/preset-big-lib": "^5.0.1",
     "husky": "^7.0.0",
     "size-limit": "^5.0.1",
     "tsdx": "^0.14.1",
