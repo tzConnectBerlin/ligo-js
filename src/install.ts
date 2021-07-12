@@ -20,7 +20,24 @@ export const checkIfDockerImageExists = async (version: string) => {
   });
 };
 
-export const downloadLinuxBinary = (
+export const downloadLinuxBinary = (path: string) => {
+  return new Promise(resolve => {
+    const binaryFile = fs.createWriteStream(path, {
+      encoding: 'binary',
+      mode: 0o755,
+    });
+    https.get(LIGO_PATH, res => {
+      res.pipe(binaryFile);
+      binaryFile.on('finish', () => {
+        binaryFile.close();
+        console.log('Download Completed.\nSetting necessary permissions.');
+        resolve(path);
+      });
+    });
+  });
+};
+
+export const installLinuxBinary = (
   binDirectory: string,
   binName: string,
   force = false
@@ -36,20 +53,7 @@ export const downloadLinuxBinary = (
   } else if (!fs.existsSync(normalizedDir)) {
     fs.mkdirSync(normalizedDir, { recursive: true });
   }
-  return new Promise(resolve => {
-    const binaryFile = fs.createWriteStream(normalizedPath, {
-      encoding: 'binary',
-      mode: 0o755,
-    });
-    https.get(LIGO_PATH, res => {
-      res.pipe(binaryFile);
-      binaryFile.on('finish', () => {
-        binaryFile.close();
-        console.log('Download Completed.\nSetting necessary permissions.');
-        resolve(normalizedPath);
-      });
-    });
-  });
+  return downloadLinuxBinary(normalizedPath);
 };
 
 export const fetchDockerImage = async (version: string, force = false) => {
@@ -94,7 +98,7 @@ export const checkAndInstall = async (
   dockerOnly = false
 ) => {
   if (process.platform === 'linux' && !dockerOnly) {
-    await downloadLinuxBinary(binDir, binName, force);
+    await installLinuxBinary(binDir, binName, force);
   } else if (
     shouldUseDocker() ||
     (process.platform === 'linux' && dockerOnly)
@@ -106,6 +110,6 @@ export const checkAndInstall = async (
 export const postInstall = async () => {
   const args = process.argv[2];
   if (args && args === '--postinstall') {
-    await checkAndInstall('next', true);
+    await installLinuxBinary(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME, true);
   }
 };
