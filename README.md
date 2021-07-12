@@ -22,3 +22,14 @@ Checks if the platform is one of 3: `win32`, `darwin` or `linux`.
 
 - If `linux` then installs the linux binary.
 - If `win32` or `darwin` then pulls the latest ligo docker image.
+
+## Available Methods
+
+- [x] compile-contract => `compileContract`
+- [x] compile-storage => `compileStorage`
+- [ ] compile-parameter
+- [ ] compile-expression
+- [ ] dry-run
+- [ ] evaluate-expr
+- [ ] evaluate-call
+- [ ] measure-contract
