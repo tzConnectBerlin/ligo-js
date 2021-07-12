@@ -12,6 +12,8 @@ export interface CompileArguments {
   sourceFile: string;
   parameterExpression?: string;
   storageExpression?: string;
+  syntax?: Syntax;
+  expression?: string;
 }
 
 export type CompileContractArguments = Omit<
@@ -26,6 +28,11 @@ export type CompileStorageArguments = Required<
 export type CompileParameterArguments = Required<
   Omit<CompileArguments, 'parameterExpression'>
 >;
+
+export interface CompileExpressionArguments {
+  syntax: Syntax;
+  expression: string;
+}
 
 export interface CommonOptions {
   displayFormat?: DisplayFormat;
@@ -68,3 +75,8 @@ export interface DryRunArguments {
 }
 
 export type DryRunOptions = CompileStorageOptions;
+
+export interface CompileExpressionOptions
+  extends Omit<CommonOptions, 'syntax'> {
+  initFile?: string;
+}

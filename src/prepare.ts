@@ -2,6 +2,8 @@ import path from 'path';
 import { CompileContractOptions, CompileStorageOptions, StringIndex } from '.';
 import {
   CompileArguments,
+  CompileExpressionArguments,
+  CompileExpressionOptions,
   CompileParameterOptions,
   DryRunArguments,
   DryRunOptions,
@@ -14,6 +16,7 @@ const OPTION_MAP: StringIndex = {
   michelsonFormat: 'michelson-format',
   outputFile: 'output-file',
   displayFormat: 'display-format',
+  initFile: 'init-file',
 };
 
 const DEFAULT_OPTIONS: CompileContractOptions = {
@@ -21,12 +24,13 @@ const DEFAULT_OPTIONS: CompileContractOptions = {
   michelsonFormat: 'text',
 };
 
-type ArgTypes = CompileArguments | DryRunArguments;
+type ArgTypes = CompileArguments | DryRunArguments | CompileExpressionArguments;
 
 type OptionTypes =
   | CompileContractOptions
   | CompileStorageOptions
   | CompileParameterOptions
+  | CompileExpressionOptions
   | DryRunOptions;
 
 export const prepare = (
@@ -62,7 +66,16 @@ export const prepare = (
       return `--${optionCMDValue}=${compileOptions[option]}`;
     }
   );
-  let { sourceFile, ...rest } = args;
+  if (command === 'compile-expression') {
+    const compileExpArgs = args as CompileExpressionArguments;
+    return [
+      command,
+      ...preparedOpts,
+      compileExpArgs.syntax,
+      compileExpArgs.expression,
+    ];
+  }
+  let { sourceFile, ...rest } = args as CompileArguments;
   if (useDocker) {
     let currentWorkingDirectory = path.normalize(process.cwd());
     const sourcePath = path.normalize(sourceFile);
