@@ -1,6 +1,11 @@
 import path from 'path';
 import { CompileContractOptions, CompileStorageOptions, StringIndex } from '.';
-import { CompileArguments, CompileParameterOptions } from './types';
+import {
+  CompileArguments,
+  CompileParameterOptions,
+  DryRunArguments,
+  DryRunOptions,
+} from './types';
 
 const NO_VALUE_OPTIONS = ['infer', 'version', 'disable-michelson-typechecking'];
 
@@ -16,18 +21,21 @@ const DEFAULT_OPTIONS: CompileContractOptions = {
   michelsonFormat: 'text',
 };
 
-type AllCompileOptions =
+type ArgTypes = CompileArguments | DryRunArguments;
+
+type OptionTypes =
   | CompileContractOptions
   | CompileStorageOptions
-  | CompileParameterOptions;
+  | CompileParameterOptions
+  | DryRunOptions;
 
 export const prepare = (
   command: string,
-  args: CompileArguments,
-  opts?: AllCompileOptions,
+  args: ArgTypes,
+  opts?: OptionTypes,
   useDocker = false
 ): string[] => {
-  const compileOptions: AllCompileOptions = {
+  const compileOptions: OptionTypes = {
     ...DEFAULT_OPTIONS,
     ...opts,
   };
@@ -62,6 +70,16 @@ export const prepare = (
     sourceFile = path
       .normalize('/project/' + sourcePath.replace(currentWorkingDirectory, ''))
       .replace(/\\/g, '/');
+  }
+  if (command === 'dry-run') {
+    return [
+      command,
+      ...preparedOpts,
+      sourceFile,
+      rest.entrypoint,
+      rest.parameterExpression ?? 'undefined',
+      rest.storageExpression ?? 'undefined',
+    ];
   }
   return [
     command,

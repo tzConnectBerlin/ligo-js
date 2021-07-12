@@ -58,4 +58,13 @@ export interface CompileStorageOptions extends CommonOptions {
   source?: string;
 }
 
-export interface CompileParameterOptions extends CompileStorageOptions {}
+export type CompileParameterOptions = CompileStorageOptions;
+
+export interface DryRunArguments {
+  entrypoint: string;
+  sourceFile: string;
+  parameterExpression: string;
+  storageExpression: string;
+}
+
+export type DryRunOptions = CompileStorageOptions;

@@ -29,7 +29,7 @@ Checks if the platform is one of 3: `win32`, `darwin` or `linux`.
 - [x] compile-storage => `compileStorage`
 - [x] compile-parameter => `compileParameter`
 - [ ] compile-expression
-- [ ] dry-run
+- [x] dry-run
 - [ ] evaluate-expr
 - [ ] evaluate-call
 - [ ] measure-contract
