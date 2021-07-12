@@ -12,7 +12,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "tsdx build --target node --format cjs,esm,umd",
+    "build": "tsdx build --target node --format cjs,esm",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",

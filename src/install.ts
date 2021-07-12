@@ -110,6 +110,6 @@ export const checkAndInstall = async (
 export const postInstall = async () => {
   const args = process.argv[2];
   if (args && args === '--postinstall') {
-    await installLinuxBinary(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME, true);
+    await checkAndInstall('next', true);
   }
 };

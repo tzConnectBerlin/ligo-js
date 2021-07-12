@@ -7,10 +7,25 @@ export interface StringIndex {
   [key: string]: string;
 }
 
-export interface CompileContractArguments {
+export interface CompileArguments {
   entrypoint: string;
   sourceFile: string;
+  parameterExpression?: string;
+  storageExpression?: string;
 }
+
+export type CompileContractArguments = Omit<
+  CompileArguments,
+  'parameterExpression' | 'storageExpression'
+>;
+
+export type CompileStorageArguments = Required<
+  Omit<CompileArguments, 'storageExpression'>
+>;
+
+export type CompileParameterArguments = Required<
+  Omit<CompileArguments, 'parameterExpression'>
+>;
 
 export interface CommonOptions {
   displayFormat?: DisplayFormat;
@@ -33,14 +48,6 @@ export interface CommonOptions {
 
 export interface CompileContractOptions extends CommonOptions {
   disableMichelsonTypeChecking?: boolean;
-}
-
-export interface CompileStorageArguments extends CompileContractArguments {
-  storageExpression: string;
-}
-
-export interface CompileParameterArguments extends CompileContractArguments {
-  parameterExpression: string;
 }
 
 export interface CompileStorageOptions extends CommonOptions {

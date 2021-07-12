@@ -1,22 +1,22 @@
-import { CompileContractOptions, CompileContractArguments } from './types';
+import { CompileParameterOptions, CompileParameterArguments } from './types';
 import { executeWithDocker } from './docker';
 import { DEFAULT_BIN_DIR, DEFAULT_BIN_NAME } from './globals';
 import { executeWithBinary } from './ligoBinary';
 import { shouldUseDocker } from './utils';
 import { prepare } from './compile';
 
-const command = 'compile-contract';
+const command = 'compile-parameter';
 
 /**
  *
- * @param args arguments taken by compile-contract command
- * @param opts Options taken by compile contract command
+ * @param args arguments taken by compile-parameter command
+ * @param opts Options taken by compile parameter command
  * @param useDocker should use docker to execute (default: false)
  * @returns string | undefined (depends on options)
  */
-export const compileContract = async (
-  args: CompileContractArguments,
-  opts?: CompileContractOptions,
+export const compileParameter = async (
+  args: CompileParameterArguments,
+  opts?: CompileParameterOptions,
   useDocker = false
 ) => {
   try {
