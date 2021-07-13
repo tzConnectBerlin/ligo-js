@@ -1,5 +1,5 @@
 import path from 'path';
-import { CompileContractOptions, CompileStorageOptions, StringIndex } from '.';
+import { CompileContractOptions, CompileStorageOptions, StringIndex } from '..';
 import {
   CompileArguments,
   CompileExpressionArguments,
@@ -7,7 +7,7 @@ import {
   CompileParameterOptions,
   DryRunArguments,
   DryRunOptions,
-} from './types';
+} from '../types';
 
 const NO_VALUE_OPTIONS = ['infer', 'version', 'disable-michelson-typechecking'];
 

@@ -1,9 +1,9 @@
 import { DryRunArguments, DryRunOptions } from '../types';
-import { executeWithDocker } from '../docker';
+import { executeWithDocker } from '../execute/docker';
 import { shouldUseDocker } from '../utils';
-import { executeWithBinary } from '../ligoBinary';
+import { executeWithBinary } from '../execute/ligoBinary';
 import { DEFAULT_BIN_DIR, DEFAULT_BIN_NAME } from '../globals';
-import { prepare } from '../prepare';
+import { prepare } from './prepare';
 
 const command = 'dry-run';
 

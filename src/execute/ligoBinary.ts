@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { getBinaryPath } from './utils';
+import { getBinaryPath } from '../utils';
 
 export const executeWithBinary = async (
   binDirectory: string,

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsdx build --target node --format cjs,esm",
-    "test": "tsdx test",
+    "test": "tsdx test --coverage",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "postinstall": "node scripts/postinstall.js",

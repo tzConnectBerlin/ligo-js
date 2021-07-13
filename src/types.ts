@@ -16,17 +16,19 @@ export interface CompileArguments {
   expression?: string;
 }
 
-export type CompileContractArguments = Omit<
-  CompileArguments,
-  'parameterExpression' | 'storageExpression'
+export type CompileContractArguments = Required<
+  Omit<
+    CompileArguments,
+    'parameterExpression' | 'storageExpression' | 'expression' | 'syntax'
+  >
 >;
 
 export type CompileStorageArguments = Required<
-  Omit<CompileArguments, 'storageExpression'>
+  Omit<CompileArguments, 'parameterExpression' | 'expression' | 'syntax'>
 >;
 
 export type CompileParameterArguments = Required<
-  Omit<CompileArguments, 'parameterExpression'>
+  Omit<CompileArguments, 'storageExpression' | 'expression' | 'syntax'>
 >;
 
 export interface CompileExpressionArguments {
@@ -40,7 +42,6 @@ export interface CommonOptions {
   michelsonFormat?: MichelsonFormat;
   outputFile?: string;
   protocol?: string;
-  syntax?: Syntax;
   warn?: boolean;
   [key: string]:
     | string
@@ -55,6 +56,7 @@ export interface CommonOptions {
 
 export interface CompileContractOptions extends CommonOptions {
   disableMichelsonTypeChecking?: boolean;
+  syntax?: Syntax;
 }
 
 export interface CompileStorageOptions extends CommonOptions {
@@ -63,6 +65,7 @@ export interface CompileStorageOptions extends CommonOptions {
   now?: string;
   sender?: string;
   source?: string;
+  syntax?: Syntax;
 }
 
 export type CompileParameterOptions = CompileStorageOptions;
@@ -76,7 +79,6 @@ export interface DryRunArguments {
 
 export type DryRunOptions = CompileStorageOptions;
 
-export interface CompileExpressionOptions
-  extends Omit<CommonOptions, 'syntax'> {
+export interface CompileExpressionOptions extends CommonOptions {
   initFile?: string;
 }

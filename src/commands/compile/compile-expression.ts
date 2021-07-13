@@ -1,9 +1,9 @@
 import { CompileExpressionArguments, CompileExpressionOptions } from '../../types';
-import { executeWithDocker } from '../../docker';
+import { executeWithDocker } from '../../execute/docker';
 import { DEFAULT_BIN_DIR, DEFAULT_BIN_NAME } from '../../globals';
-import { executeWithBinary } from '../../ligoBinary';
+import { executeWithBinary } from '../../execute/ligoBinary';
 import { shouldUseDocker } from '../../utils';
-import { prepare } from '../../prepare';
+import { prepare } from '../prepare';
 
 const command = 'compile-parameter';
 
