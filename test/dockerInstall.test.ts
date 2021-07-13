@@ -43,8 +43,8 @@ describe('checkAndInstall tests', () => {
 
   it('defaults', async () => {
     let exits = false;
+    const binPath = getBinaryPath(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME);
     if (process.platform === 'linux') {
-      const binPath = getBinaryPath(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME);
       if (fs.existsSync(binPath)) {
         fs.unlinkSync(binPath);
       }
@@ -53,7 +53,12 @@ describe('checkAndInstall tests', () => {
       expect(exits).toBe(false);
     }
     await checkAndInstall();
-    exits = await checkIfDockerImageExists('next');
-    expect(exits).toBe(true);
+    if (process.platform === 'linux') {
+      exits = fs.existsSync(binPath);
+      expect(exits).toBe(true);
+    } else {
+      exits = await checkIfDockerImageExists('next');
+      expect(exits).toBe(true);
+    }
   });
 });
