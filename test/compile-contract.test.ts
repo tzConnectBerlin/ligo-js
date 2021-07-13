@@ -7,12 +7,9 @@ import {
 } from '../src';
 import { checkAndInstall } from '../src/install';
 
-beforeAll(async () => {
+it('compile contracts default -- no error/warning', async () => {
   jest.setTimeout(50000);
   await checkAndInstall();
-});
-
-it('compile contracts default -- no error/warning', async () => {
   const compileOptions: CompileContractOptions = {
     displayFormat: 'json',
     michelsonFormat: 'json',
@@ -30,6 +27,8 @@ it('compile contracts default -- no error/warning', async () => {
 });
 
 it('compile contracts useDocker -- no error/warning', async () => {
+  jest.setTimeout(50000);
+  await checkAndInstall('next', true, undefined, undefined, true);
   const compileOptions: CompileContractOptions = {
     displayFormat: 'json',
     michelsonFormat: 'json',
