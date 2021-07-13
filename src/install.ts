@@ -20,7 +20,7 @@ export const checkIfDockerImageExists = async (version: string) => {
   });
 };
 
-export const downloadLinuxBinary = (path: string) => {
+export const downloadLinuxBinary = (path: string): Promise<string> => {
   return new Promise(resolve => {
     const binaryFile = fs.createWriteStream(path, {
       encoding: 'binary',
@@ -30,25 +30,25 @@ export const downloadLinuxBinary = (path: string) => {
       res.pipe(binaryFile);
       binaryFile.on('finish', () => {
         binaryFile.close();
-        console.log('Download Completed.\nSetting necessary permissions.');
+        console.log('Download Completed.');
         resolve(path);
       });
     });
   });
 };
 
-export const installLinuxBinary = (
+export const installLinuxBinary = async (
   binDirectory: string,
   binName: string,
   force = false
-) => {
+): Promise<string> => {
   const normalizedDir = getBinaryDirectory(binDirectory);
   const normalizedPath = getBinaryPath(binDirectory, binName);
   if (fs.existsSync(normalizedPath)) {
     if (force) {
       fs.unlinkSync(normalizedPath);
     } else {
-      return;
+      return Promise.resolve('');
     }
   } else if (!fs.existsSync(normalizedDir)) {
     fs.mkdirSync(normalizedDir, { recursive: true });

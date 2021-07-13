@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsdx build --target node --format cjs,esm",
-    "test": "tsdx test --coverage",
+    "test": "tsdx test --coverage --runInBand --detectOpenHandles",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "postinstall": "node scripts/postinstall.js",
