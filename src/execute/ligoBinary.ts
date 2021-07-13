@@ -23,11 +23,12 @@ export const executeWithBinary = async (
     });
 
     ligoSpawn.on('close', code => {
-      if (code != 0 || stderr.trim() != '') {
-        if (stderr.includes('Warning')) {
-          resolve(stderr);
+      const err = stderr.trim();
+      if (code !== 0 || !['', '[]'].includes(err)) {
+        if (err.includes('Warning')) {
+          resolve(err);
         } else {
-          reject(stderr);
+          reject(['', '[]'].includes(err) ? stdout : err);
         }
       }
       resolve(stdout.trim());
