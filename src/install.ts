@@ -9,7 +9,9 @@ import {
 } from './globals';
 import { getBinaryDirectory, getBinaryPath, shouldUseDocker } from './utils';
 
-export const checkIfDockerImageExists = async (version: string) => {
+export const checkIfDockerImageExists = async (
+  version: string
+): Promise<boolean> => {
   return new Promise(resolve => {
     exec(`docker image inspect ligolang/ligo:${version}`, err => {
       if (err) {
