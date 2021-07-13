@@ -9,7 +9,7 @@
 ## Available Scripts
 
 - `build` to build the package in `dist` folder.
-- `test` to run the tests (if any)
+- `test` to run the tests
 - `lint` to run the linter
 - `size-limit` to see the size of the package
 - `analyze` to show the deps and source size in browser
