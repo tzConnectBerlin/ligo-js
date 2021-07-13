@@ -94,6 +94,9 @@ export const prepare = (
       rest.storageExpression ?? 'undefined',
     ];
   }
+  if (command === 'compile-contract') {
+    return [command, ...preparedOpts, sourceFile, rest.entrypoint];
+  }
   return [
     command,
     ...preparedOpts,

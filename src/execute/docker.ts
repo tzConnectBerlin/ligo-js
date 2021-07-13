@@ -6,7 +6,6 @@ export const executeWithDocker = async (
 ): Promise<string | undefined> => {
   return new Promise((resolve, reject) => {
     const currentWorkingDirectory = path.normalize(process.cwd());
-
     let dockerSpawn = spawn('docker', [
       'run',
       '-v',
@@ -29,11 +28,12 @@ export const executeWithDocker = async (
     });
 
     dockerSpawn.on('close', code => {
-      if (code != 0 || stderr.trim() != '') {
-        if (stderr.includes('Warning')) {
-          resolve(stderr);
+      const err = stderr.trim();
+      if (code !== 0 || !['', '[]'].includes(err)) {
+        if (err.includes('Warning')) {
+          resolve(err);
         } else {
-          reject(stderr);
+          reject(['', '[]'].includes(err) ? stdout : err);
         }
       }
       resolve(stdout.trim());
