@@ -1,9 +1,12 @@
+import fs from 'fs';
 import {
   fetchDockerImage,
   checkIfDockerImageExists,
   checkAndInstall,
 } from '../src/install';
 import { execSync } from 'child_process';
+import { DEFAULT_BIN_DIR, DEFAULT_BIN_NAME } from '../src/globals';
+import { getBinaryPath } from '../src/utils';
 
 const deleteLigoImage = () => {
   try {
@@ -36,5 +39,21 @@ describe('checkAndInstall tests', () => {
     await checkAndInstall('next', true, undefined, undefined, true);
     imageExits = await checkIfDockerImageExists('next');
     expect(imageExits).toBe(true);
+  });
+
+  it('defaults', async () => {
+    let exits = false;
+    if (process.platform === 'linux') {
+      const binPath = getBinaryPath(DEFAULT_BIN_DIR, DEFAULT_BIN_NAME);
+      if (fs.existsSync(binPath)) {
+        fs.unlinkSync(binPath);
+      }
+    } else {
+      exits = await checkIfDockerImageExists('next');
+      expect(exits).toBe(false);
+    }
+    await checkAndInstall();
+    exits = await checkIfDockerImageExists('next');
+    expect(exits).toBe(true);
   });
 });
