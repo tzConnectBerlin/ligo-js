@@ -44,28 +44,12 @@ jobs:
       - run: yarn test
       - codecov/upload:
           file: "./coverage/lcov.info"
-  test-windows:
-    executor: win/default
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-macos-{{ checksum "package.json" }}
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-macos-{{ checksum "package.json" }}
-      - run: yarn test
-      - codecov/upload:
-          file: "./coverage/lcov.info"
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - test
-      - test-windows
+      - test:
+          requires:
+            - build
