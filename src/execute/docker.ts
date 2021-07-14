@@ -30,7 +30,7 @@ export const executeWithDocker = async (
     dockerSpawn.on('close', code => {
       const err = stderr.trim();
       if (code !== 0 || !['', '[]'].includes(err)) {
-        if (err.includes('Warning')) {
+        if (err.toLowerCase().includes('warning')) {
           resolve(err);
         } else {
           reject(['', '[]'].includes(err) ? stdout : err);
