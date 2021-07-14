@@ -30,9 +30,6 @@ jobs:
       image: ubuntu-2004:202104-01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.6
-          docker_layer_caching: true
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
