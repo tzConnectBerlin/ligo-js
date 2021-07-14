@@ -4,3 +4,4 @@ node_modules
 dist
 .ligo-js
 coverage
+test.mligo.json
