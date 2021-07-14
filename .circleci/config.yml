@@ -4,6 +4,7 @@ setup: true
 
 orbs:
   codecov: codecov/codecov@1.2.3
+  win: circleci/windows@2.4.0
 
 jobs:
   build:
@@ -44,8 +45,7 @@ jobs:
       - codecov/upload:
           file: "./coverage/lcov.info"
   test-windows:
-    machine:
-      image: windows-server-2019-nvidia:stable
+    executor: win/default
     steps:
       - checkout
       - restore_cache:
