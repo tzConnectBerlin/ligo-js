@@ -6,7 +6,6 @@ export const executeWithDocker = async (
 ): Promise<string | undefined> => {
   return new Promise((resolve, reject) => {
     const currentWorkingDirectory = path.normalize(process.cwd());
-    console.log('Current:', currentWorkingDirectory);
     let dockerSpawn = spawn('docker', [
       'run',
       '-v',
