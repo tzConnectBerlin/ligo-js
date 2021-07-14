@@ -77,3 +77,4 @@ workflows:
       - test:
           requires:
             - build
+      - test-win
