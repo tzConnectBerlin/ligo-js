@@ -26,10 +26,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: CI=false yarn build
   test:
-    docker:
-      - image: circleci/node:14
-        environment:
-          NODE_OPTIONS: --max_old_space_size=4096
+    machine:
+      image: ubuntu-2004:202104-01
     steps:
       - checkout
       - setup_remote_docker:
