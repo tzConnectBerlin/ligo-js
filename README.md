@@ -2,6 +2,10 @@
 
 > A JavaScript/TypeScript wrapper for [Ligo](https://ligolang.org/)
 
+[![CircleCI](https://circleci.com/gh/tzConnectBerlin/ligo-js/tree/main.svg?style=svg&circle-token=24cb837cbe8ce091c59c3a77c598fc3c4bd152f8)](https://circleci.com/gh/tzConnectBerlin/ligo-js/tree/main)
+
+[![codecov](https://codecov.io/gh/tzConnectBerlin/ligo-js/branch/main/graph/badge.svg?token=YZHWODI8VN)](https://codecov.io/gh/tzConnectBerlin/ligo-js)
+
 ## Prerequisite
 
 **For Windows or Mac please install DOCKER before installing this.**
