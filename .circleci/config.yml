@@ -32,15 +32,32 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-dependencies-ubuntu-{{ checksum "package.json" }}
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
             - ~/.npm
             - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-ubuntu-{{ checksum "package.json" }}
+      - run: yarn test
+      - codecov/upload:
+          file: "./coverage/lcov.info"
+  test-macos:
+    macos:
+      xcode: "12.5.1"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-macos-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-macos-{{ checksum "package.json" }}
       - run: yarn test
       - codecov/upload:
           file: "./coverage/lcov.info"
