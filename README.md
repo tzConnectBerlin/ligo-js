@@ -8,8 +8,8 @@
 
 ## Prerequisite
 
-**For Windows or Mac please install DOCKER before installing this.**
-**For Windows enable support for Linux containers"
+- **For Windows or Mac please install DOCKER before installing this.**
+- **For Windows enable support for Linux containers**
 
 ## Available Scripts
 
