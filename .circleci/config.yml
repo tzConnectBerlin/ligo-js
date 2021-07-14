@@ -4,6 +4,7 @@ setup: true
 
 orbs:
   codecov: codecov/codecov@1.2.3
+  win: circleci/windows@2.4.0
 
 jobs:
   build:
@@ -44,6 +45,29 @@ jobs:
       - run: yarn test
       - codecov/upload:
           file: "./coverage/lcov.info"
+  test-win:
+    executor: win/default
+    steps:
+      - checkout
+      - run: Set-Content -Value "`{`"experimental`":true`}" -Path
+      - run: Restart-Service docker
+      - run: mkdir "C:\Program Files\Linux Containers"
+      - run: cd "C:\Program Files\Linux Containers"
+      - run: curl -OutFile release.zip https://github.com/linuxkit/lcow/releases/download/v4.14.35-v0.3.9/release.zip
+      - run: Expand-Archive -DestinationPath . .\release.zip
+      - run: rm release.zip
+      - restore_cache:
+          keys:
+            - v1-dependencies-win-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-win-{{ checksum "package.json" }}
+      - run: yarn test
 
 workflows:
   version: 2
