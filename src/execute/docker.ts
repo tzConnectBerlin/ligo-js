@@ -8,6 +8,7 @@ export const executeWithDocker = async (
     const currentWorkingDirectory = path.normalize(process.cwd());
     let dockerSpawn = spawn('docker', [
       'run',
+      `--platform=linux/amd64`,
       '-v',
       `${currentWorkingDirectory}:/project`,
       '--rm',
