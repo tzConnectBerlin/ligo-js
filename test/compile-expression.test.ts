@@ -32,3 +32,11 @@ it('compile expression no opts -- no error/warning', async () => {
   const result = await compileExpression(compileCorrectArgs);
   expect(result).toBe(expected);
 });
+
+it('compile expression no opts -- no error/warning', async () => {
+  jest.setTimeout(50000);
+  await checkAndInstall('next', true, undefined, undefined, true);
+  const expected = '{ PUSH nat 42 ; DROP ; PUSH nat 1 ; ADD }';
+  const result = await compileExpression(compileCorrectArgs, undefined, true);
+  expect(result).toBe(expected);
+});

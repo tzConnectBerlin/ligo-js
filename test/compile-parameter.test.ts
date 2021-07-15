@@ -11,7 +11,7 @@ const compileOptions: CompileParameterOptions = {
 };
 const compileCorrectArgs: CompileParameterArguments = {
   entrypoint: 'main',
-  sourceFile: './test/fixtures/test.mligo',
+  sourceFile: './test/contracts/test.mligo',
   parameterExpression: 'Increment(5)',
 };
 
@@ -34,5 +34,13 @@ it('compile parameter default -- no error/warning', async () => {
 it('compile parameter no opts -- no error/warning', async () => {
   const expected = '(Left (Right 5))';
   const result = await compileParameter(compileCorrectArgs);
+  expect(result).toBe(expected);
+});
+
+it('compile parameter no opts -- no error/warning', async () => {
+  jest.setTimeout(50000);
+  await checkAndInstall('next', true, undefined, undefined, true);
+  const expected = '(Left (Right 5))';
+  const result = await compileParameter(compileCorrectArgs, undefined, true);
   expect(result).toBe(expected);
 });
