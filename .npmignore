@@ -1,0 +1,5 @@
+.circleci
+.ligo-js
+coverage
+test
+jest.config.js

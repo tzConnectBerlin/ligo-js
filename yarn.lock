@@ -1198,34 +1198,34 @@
   dependencies:
     debug "^4.1.1"
 
-"@size-limit/file@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-5.0.1.tgz#8cf5a550a88fe5972db31e65cfd0b040485fd141"
-  integrity sha512-BgbGFdFwijuR6tZRlmUoN3UzOIN+dt+28hzsYKjTl1LOn4zUJjTWgTCye11Qygj5L6+MkDZOA1ppEm4ZfjPgmQ==
+"@size-limit/file@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-5.0.2.tgz#6dc7f971eb85ca1e32adcbac88410684e5140035"
+  integrity sha512-xWiQnB4D9ty0ZAMLgPfsAhDzYSxj58bOveGsn0lpT/bxcPKvR+Mqqjwf33yRyHeKKGmslj3Hxm2Y8D5eLD465w==
   dependencies:
     semver "7.3.5"
 
-"@size-limit/preset-big-lib@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-5.0.1.tgz#ca4e7e37b0a12a24378256f1b0955d7811a88996"
-  integrity sha512-D9UTwN7kzK7qFGUY8rOd0nenRp2BkgCmr1widKalvI8q0Q2CjRBmLiSSBa4cSgjkBTT0/jTdMGWbnLXPKoxhHA==
+"@size-limit/preset-big-lib@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-5.0.2.tgz#bee6489f47686259660d07400bb1ae3ccbff4efd"
+  integrity sha512-lWRSMaTSmz/Qre67xjoKGc0CaJEqGqAP+qevgl8m3e30R8r5yEsEJsM8MunuWknbRmjh/kKdtxhc+3PPFPt1dg==
   dependencies:
-    "@size-limit/file" "5.0.1"
-    "@size-limit/time" "5.0.1"
-    "@size-limit/webpack" "5.0.1"
+    "@size-limit/file" "5.0.2"
+    "@size-limit/time" "5.0.2"
+    "@size-limit/webpack" "5.0.2"
 
-"@size-limit/time@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-5.0.1.tgz#0566ba1f7a139b4b593352f1d34f7d33dc9f572f"
-  integrity sha512-VcEQF3ejYPf97CjcJ6jnRTn8ypORma2uoeq2lPr+KEBTNoaUAnZJ1ByrXmhriz0iOSJ0WYKMnsVbaqnabC7RJQ==
+"@size-limit/time@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-5.0.2.tgz#8ea5f449c12922f135d647d610dbb4d21f65e651"
+  integrity sha512-TcYakKJnEWJ1/6YWXEcw686SEQocwgN14MFIGIsujhpmZewalPRKWTU0oa0AB1MEGY+fqpFczY8F6g+NGXK1Jw==
   dependencies:
     estimo "^2.2.8"
     react "^17.0.2"
 
-"@size-limit/webpack@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-5.0.1.tgz#029495f5227efec22ffe3c36e3b7f23d2d2a0c22"
-  integrity sha512-dG/H0GRc4P5Dc3KRjaQBq7EfGiOqGDw/eTBdkzvd2VnELl7DFcgoC1hULu9Y0XL50Ha+dGQ1AtNKWsZ3dacH/Q==
+"@size-limit/webpack@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-5.0.2.tgz#54f57c613d0d385c00133deecc7414e5c38fb580"
+  integrity sha512-wcNrWETJEvFeGrDPL7WSZMZthntPLb/iX7cyx5dEBBB/AgUPua/1J8MRCwaXerW69P9KG33QqsOziR0T/H/xpg==
   dependencies:
     css-loader "^5.2.6"
     escape-string-regexp "^4.0.0"
@@ -1233,7 +1233,7 @@
     mkdirp "^1.0.4"
     nanoid "^3.1.23"
     optimize-css-assets-webpack-plugin "^6.0.1"
-    pnp-webpack-plugin "^1.6.4"
+    pnp-webpack-plugin "^1.7.0"
     style-loader "^2.0.0"
     webpack "^4.44.1"
     webpack-bundle-analyzer "^4.4.2"
@@ -4249,10 +4249,10 @@ humanize-duration@^3.15.3:
   resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.27.0.tgz#3f781b7cf8022ad587f76b9839b60bc2b29636b2"
   integrity sha512-qLo/08cNc3Tb0uD7jK0jAcU5cnqCM0n568918E7R2XhMr/+7F37p4EY062W/stg7tmzvknNn9b/1+UhVRzsYrQ==
 
-husky@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-7.0.0.tgz#3dbd5d28e76234689ee29bb41e048f28e3e46616"
-  integrity sha512-xK7lO0EtSzfFPiw+oQncQVy/XqV7UVVjxBByc+Iv5iK3yhW9boDoWgvZy3OGo48QKg/hUtZkzz0hi2HXa0kn7w==
+husky@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-7.0.1.tgz#579f4180b5da4520263e8713cc832942b48e1f1c"
+  integrity sha512-gceRaITVZ+cJH9sNHqx5tFwbzlLCVxtVZcusME8JYQ8Edy5mpGDOqD8QBCdMhpyo9a+JXddnujQ4rpY2Ff9SJA==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
@@ -5541,10 +5541,10 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-mico-spinner@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/mico-spinner/-/mico-spinner-1.1.1.tgz#b904cf4dc1ae247d9bff24b969d8bcbb08371f5d"
-  integrity sha512-b9F3Qx9l6fO141+FbR9hqRUJ15p4bGVsqgXiO/noxxXZmN+hYZVCuWd4LEubadrVkw0eIYAJDXWo0ZYGoLrmfg==
+mico-spinner@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/mico-spinner/-/mico-spinner-1.2.2.tgz#0f00cbf45c81b58fbd7d0a7bb2dea8546867d413"
+  integrity sha512-jIsOIIk5xa+TmZJU2mPVTEk1AC7aKnrj8UJR58cTiK8msNWYvPuQxPx0ojNbtVOut/TjTgGkVLrEt1jsrceYfA==
   dependencies:
     colorette "^1.2.2"
 
@@ -6276,10 +6276,10 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
-pnp-webpack-plugin@^1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.6.4.tgz#c9711ac4dc48a685dabafc86f8b6dd9f8df84149"
-  integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
+pnp-webpack-plugin@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.7.0.tgz#65741384f6d8056f36e2255a8d67ffc20866f5c9"
+  integrity sha512-2Rb3vm+EXble/sMXNSu6eoBx8e79gKqhNq9F5ZWW6ERNCTE/Q0wQNne5541tE5vKjfM8hpNCYL+LGc1YTfI0dg==
   dependencies:
     ts-pnp "^1.1.6"
 
@@ -7369,10 +7369,10 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
-size-limit@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-5.0.1.tgz#9aedea30bfb7cea17e78d86bc19c61d3df53b91e"
-  integrity sha512-FZwVay5fCdatHoZU1lGyvVK3KrI4puMKbU1UoLLhEaMjQBxPuovuF+eJIDzmJN+xZRk3thuG7yS77DhuWF4fEQ==
+size-limit@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-5.0.2.tgz#eb049815c3de2fe40cf29c67506a89a7bbd891f1"
+  integrity sha512-BI9xdyRmwTULjLxI1ARSh6kj69LNBCI2+IPqlXo6OX2/TlPFjA6foJvuWdu9yNsi1se/ZqtB7gh5Z33dIfMUjQ==
   dependencies:
     bytes-iec "^3.1.1"
     chokidar "^3.5.2"
@@ -7380,7 +7380,7 @@ size-limit@^5.0.1:
     colorette "^1.2.2"
     globby "^11.0.4"
     lilconfig "^2.0.3"
-    mico-spinner "^1.1.1"
+    mico-spinner "^1.2.1"
 
 slash@^3.0.0:
   version "3.0.0"
