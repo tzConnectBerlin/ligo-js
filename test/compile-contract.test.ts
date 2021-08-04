@@ -46,7 +46,7 @@ it('compile contracts default -- with warning', async () => {
     process.cwd() + '/test/contracts/test.mligo.json'
   );
   expect(fs.existsSync(filePath)).toBe(true);
-  expect(JSON.parse(warning ?? '{}')[0].status).toEqual('warning');
+  expect(JSON.parse(warning ?? '{}').status).toEqual('warning');
 });
 
 it('compile contracts default -- with error', async () => {
