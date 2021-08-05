@@ -1,4 +1,4 @@
-# Ligo-js
+# Ligo.js
 
 > A JavaScript/TypeScript wrapper for [Ligo](https://ligolang.org/)
 
