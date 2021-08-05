@@ -6,11 +6,22 @@
 
 [![CircleCI](https://circleci.com/gh/tzConnectBerlin/ligo-js/tree/main.svg?style=svg&circle-token=24cb837cbe8ce091c59c3a77c598fc3c4bd152f8)](https://circleci.com/gh/tzConnectBerlin/ligo-js/tree/main)
 [![codecov](https://codecov.io/gh/tzConnectBerlin/ligo-js/branch/main/graph/badge.svg?token=YZHWODI8VN)](https://codecov.io/gh/tzConnectBerlin/ligo-js)
+![npm (scoped)](https://img.shields.io/npm/v/@tzconnect/ligojs)
 
 ## Prerequisite
 
 - **For Windows or Mac please install DOCKER before installing this.**
 - **For Windows enable support for Linux containers**
+
+## Install
+
+```bash
+npm i @tzconnect/ligojs
+
+or
+
+yarn add @tzconnect/ligojs
+```
 
 ## Available Scripts
 
