@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,7 +44,7 @@
       "limit": "40 KB"
     }
   ],
-  "name": "ligojs",
+  "name": "@tzconnect/ligojs",
   "author": "Shubhendu Shekhar",
   "module": "dist/ligojs.esm.js",
   "devDependencies": {
