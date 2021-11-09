@@ -5,3 +5,4 @@ dist
 .ligo-js
 coverage
 test.mligo.json
+.vscode/
