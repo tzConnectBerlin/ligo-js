@@ -5,7 +5,7 @@ import { executeWithBinary } from '../../execute/ligoBinary';
 import { shouldUseDocker } from '../../utils';
 import { prepare } from '../prepare';
 
-const command = 'compile-contract';
+const command = 'compile contract';
 
 /**
  *

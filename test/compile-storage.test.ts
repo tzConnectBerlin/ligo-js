@@ -6,7 +6,7 @@ import {
 import { checkAndInstall } from '../src/install';
 
 const compileOptions: CompileStorageOptions = {
-  displayFormat: 'json',
+  format: 'json',
   michelsonFormat: 'json',
 };
 const compileCorrectArgs: CompileStorageArguments = {

@@ -14,8 +14,8 @@ const deleteLigoImage = () => {
   } catch (error) {}
 };
 
-beforeEach(() => {
-  if (checkIfDockerImageExists('next')) {
+beforeEach(async () => {
+  if (await checkIfDockerImageExists('next')) {
     deleteLigoImage();
   }
 });

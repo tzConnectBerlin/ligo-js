@@ -15,12 +15,11 @@ const OPTION_MAP: StringIndex = {
   disableMichelsonTypeChecking: 'disable-michelson-typechecking',
   michelsonFormat: 'michelson-format',
   outputFile: 'output-file',
-  displayFormat: 'display-format',
   initFile: 'init-file',
 };
 
 const DEFAULT_OPTIONS: CompileContractOptions = {
-  displayFormat: 'human-readable',
+  format: 'human-readable',
   michelsonFormat: 'text',
 };
 
@@ -43,14 +42,15 @@ export const prepare = (
     ...DEFAULT_OPTIONS,
     ...opts,
   };
-  const preparedOpts: string[] = Object.keys(compileOptions).map(
-    (option: string) => {
+  const commands = command.split(' ');
+  const preparedOpts: string[] = Object.keys(compileOptions)
+    .map((option: string) => {
       const optionCMDValue: string = OPTION_MAP[option] ?? option;
       if (NO_VALUE_OPTIONS.includes(optionCMDValue)) {
         if (compileOptions[option]) {
-          return `--${optionCMDValue}`;
+          return [`--${optionCMDValue}`];
         } else {
-          return '';
+          return [];
         }
       }
       if (
@@ -61,18 +61,18 @@ export const prepare = (
         const filePath = path.normalize(
           useDocker ? `/project/${outputOpt}` : outputOpt
         );
-        return `--${optionCMDValue}=${filePath}`;
+        return [`--${optionCMDValue}`, filePath];
       }
-      return `--${optionCMDValue}=${compileOptions[option]}`;
-    }
-  );
-  if (command === 'compile-expression') {
+      return [`--${optionCMDValue}`, `${compileOptions[option]}`];
+    })
+    .flat();
+  if (commands[1] === 'expression') {
     const compileExpArgs = args as CompileExpressionArguments;
     return [
-      command,
-      ...preparedOpts,
+      ...commands,
       compileExpArgs.syntax,
       compileExpArgs.expression,
+      ...preparedOpts,
     ];
   }
   let { sourceFile, ...rest } = args as CompileArguments;
@@ -84,9 +84,9 @@ export const prepare = (
       .normalize('/project/' + sourcePath.replace(currentWorkingDirectory, ''))
       .replace(/\\/g, '/');
   }
-  if (command === 'dry-run') {
+  if (commands[1] === 'dry-run') {
     return [
-      command,
+      ...commands,
       ...preparedOpts,
       sourceFile,
       rest.entrypoint,
@@ -94,14 +94,21 @@ export const prepare = (
       rest.storageExpression ?? 'undefined',
     ];
   }
-  if (command === 'compile-contract') {
-    return [command, ...preparedOpts, sourceFile, rest.entrypoint];
+  if (commands[1] === 'contract') {
+    return [
+      ...commands,
+      sourceFile,
+      '--entry-point',
+      rest.entrypoint,
+      ...preparedOpts,
+    ];
   }
   return [
-    command,
-    ...preparedOpts,
+    ...commands,
     sourceFile,
-    rest.entrypoint,
     rest.storageExpression ?? rest.parameterExpression ?? '',
+    '--entry-point',
+    rest.entrypoint,
+    ...preparedOpts,
   ];
 };

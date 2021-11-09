@@ -32,7 +32,6 @@ export const downloadLinuxBinary = (path: string): Promise<string> => {
       res.pipe(binaryFile);
       binaryFile.on('finish', () => {
         binaryFile.close();
-        console.log('Download Completed.');
         resolve(path);
       });
     });
@@ -62,9 +61,6 @@ export const fetchDockerImage = async (version: string, force = false) => {
   const exits = await checkIfDockerImageExists(version);
   if (!exits || !force) {
     return new Promise((resolve, reject) => {
-      console.log(
-        `Using docker to setup ligolang. Installing version ${version}...`
-      );
       let dockerSpawn = spawn('docker', ['pull', `ligolang/ligo:${version}`]);
 
       let stdout = '';
@@ -84,8 +80,6 @@ export const fetchDockerImage = async (version: string, force = false) => {
             `Unable to pull ligolang version ${version}.\nError:\n${stderr}`
           );
         }
-
-        console.log(`Installation Complete.`);
         resolve(stdout.trim());
       });
     });

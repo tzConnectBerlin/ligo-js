@@ -6,7 +6,7 @@ import {
 import { checkAndInstall } from '../src/install';
 
 const compileOptions: CompileExpressionOptions = {
-  displayFormat: 'json',
+  format: 'json',
   michelsonFormat: 'json',
 };
 const compileCorrectArgs: CompileExpressionArguments = {

@@ -8,7 +8,7 @@ import {
 import { checkAndInstall } from '../src/install';
 
 const compileOptions: CompileContractOptions = {
-  displayFormat: 'json',
+  format: 'json',
   michelsonFormat: 'json',
   outputFile: './test/contracts/test.mligo.json',
 };
@@ -54,7 +54,7 @@ it('compile contracts default -- with error', async () => {
     try {
       await compileContract(compileErrorArgs, compileOptions);
     } catch (error) {
-      throw Error(error);
+      throw Error(error as any);
     }
   }).rejects.toThrow();
 });

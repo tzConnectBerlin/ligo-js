@@ -37,7 +37,7 @@ export interface CompileExpressionArguments {
 }
 
 export interface CommonOptions {
-  displayFormat?: DisplayFormat;
+  format?: DisplayFormat;
   infer?: boolean;
   michelsonFormat?: MichelsonFormat;
   outputFile?: string;
@@ -81,4 +81,15 @@ export type DryRunOptions = CompileStorageOptions;
 
 export interface CompileExpressionOptions extends CommonOptions {
   initFile?: string;
+}
+
+export interface ErrorWarningMessage {
+  status: string;
+  stage: string;
+  content: Content;
+}
+
+export interface Content {
+  message: string;
+  location: string;
 }
